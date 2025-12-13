@@ -4,9 +4,17 @@ import './App.css'
 import Header from '../components/Header'
 import languages from './languages'
 import { nanoid } from 'nanoid'
+import clsx from 'clsx';
 
 function App() {
   let [currentWord, setCurrentWord] = useState("react");
+  let [guessWord, setGuessWord] = useState([]);
+  let [keyboardKeys, setKeyboardKeys] = useState(
+    Array.from({ length: 26 }, (_, i) => String.fromCharCode(97 + i)).map(letter => {
+      return {id:nanoid(), class:{
+                    'correct-guess': false,
+                    'wrong-guess': false,
+                  }, txt:letter }}));
 
   function flipEnter(event) {
     let {backgroundColor, color} = window.getComputedStyle(event.target);
@@ -26,10 +34,20 @@ function App() {
     return puzzleWord
   }
 
+  function guessChar(letter){
+    setKeyboardKeys(oldkeys => oldkeys.map(obj => {
+      return obj.txt === letter ? {...obj, class:{'correct-guess': currentWord.includes(letter),
+        'wrong-guess': !currentWord.includes(letter)}} : obj
+      }))
+    setGuessWord(oldword => oldword.includes(letter) ? oldword : [ ...oldword, letter]);
+  }
+
   function createKeyboard() {
-   const lowercase = Array.from({ length: 26 }, (_, i) => String.fromCharCode(97 + i));
-   let keys = lowercase.map(char => {
-    return <button key={nanoid()} className='char-key'> {char} </button>
+   let keys = keyboardKeys.map(obj => {
+    return <button 
+                key={obj.id}
+                className={clsx('char-key', obj.class)} 
+                onClick={() => guessChar(obj.txt)}> {obj.txt} </button>
    })
    return keys
   }
