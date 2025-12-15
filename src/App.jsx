@@ -18,7 +18,11 @@ function App() {
 
 
   let wrongGuessCount = guessLetter.filter(letter => !currentWord.includes(letter)).length;
-  console.log(wrongGuessCount)
+  
+   const isGameWon = Array.from(currentWord).every(char => guessLetter.includes(char));
+   const isGameLost = (wrongGuessCount >= languages.length - 1);
+   const isGameOver = isGameWon || isGameLost;
+   console.log(isGameWon)
 
   function flipEnter(event) {
     let {backgroundColor, color} = window.getComputedStyle(event.target);
@@ -39,6 +43,8 @@ function App() {
   }
 
   function guessChar(letter){
+    //if (isGameOver(langChips, wrongGuessCount)) return
+    if (isGameOver) return
     setKeyboardKeys(oldkeys => oldkeys.map(obj => {
       return obj.txt === letter ? {...obj, class:{'correct-guess': currentWord.includes(letter),
         'wrong-guess': !currentWord.includes(letter)}} : obj
@@ -55,12 +61,16 @@ function App() {
    })
    return keys
   }
-  
-  
 
+  // function isGameOver() {
+  //   return  
+  // }
+  
+  
+  
   let langChips = languages.map((lang,index) => {
     let styles = {background:lang.background, color:lang.color}
-    return <div key={lang.name} className={clsx('lang', {'lost':wrongGuessCount >= index + 1})} style={styles} aria-description={lang.text} onMouseEnter={flipEnter} onMouseLeave={() => flipLeave(lang)}> {lang.name} </div>
+    return <div key={lang.name} className={clsx('lang', {'lost':index < wrongGuessCount})} style={styles} aria-description={lang.text} onMouseEnter={flipEnter} onMouseLeave={() => flipLeave(lang)}> {lang.name} </div>
   })
   
  
@@ -69,9 +79,9 @@ function App() {
     <>
       <Header />
       <main>
-        <div className='status-text'>
+        <div className={clsx('status-text', {"won":isGameWon, "lost":isGameLost})}>
           <p>
-            You won ! Well Done.
+            {isGameWon ? "You won ! Well Done." : isGameLost ? "You lost the game" : null}
           </p>
         </div>
         <section className='languages-chips'>
@@ -83,7 +93,8 @@ function App() {
         <section className='keyboard-wrap'>
           {createKeyboard()}
         </section>
-        <button className='newgame-btn'> New Game</button>
+        {isGameOver ? <button className='newgame-btn'> New Game</button> : null}
+       
 
       </main>
     </>

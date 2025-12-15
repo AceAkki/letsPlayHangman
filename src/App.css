@@ -17,10 +17,16 @@ main {
 }
 
 .status-text {
-  background: var(--clr-success);
+  background: var(--clr-primary);
   text-align: center;
   padding: 2rem 4rem;
   border-radius: 4px;
+}
+.status-text.won{
+  background: var(--clr-success);
+}
+.status-text.lost{
+  background: var(--clr-warning);
 }
 
 .languages-chips {
