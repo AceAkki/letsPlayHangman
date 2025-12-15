@@ -29,7 +29,7 @@ function App() {
 
   function loadPuzzle() {
     let puzzleWord = Array.from(currentWord).map(char => {
-      return <span className='puzzle-char' key={nanoid()}> {char} </span>
+      return <span className={clsx('puzzle-char', {'hidden':!guessWord.includes(char)})} key={nanoid()}> {char} </span>
     })
     return puzzleWord
   }

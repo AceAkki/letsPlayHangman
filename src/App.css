@@ -54,6 +54,10 @@ main {
   border-bottom: 5px solid var(--clr-neutral);
 }
 
+.puzzle-char.hidden {
+  color: var(--clr-primary-light);
+}
+
 .keyboard-wrap {
   display: flex;
   flex-wrap: wrap;
