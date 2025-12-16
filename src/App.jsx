@@ -81,7 +81,9 @@ function App() {
       <main>
         <div className={clsx('status-text', {"won":isGameWon, "lost":isGameLost})}>
           <p>
-            {isGameWon ? "You won ! Well Done." : isGameLost ? "You lost the game" : null}
+            {isGameOver ? 
+             (isGameWon ? "You won ! Well Done." : "You lost the game")
+             : null}
           </p>
         </div>
         <section className='languages-chips'>
