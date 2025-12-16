@@ -28,6 +28,9 @@ main {
 .status-text.lost{
   background: var(--clr-warning);
 }
+.status-text.lang-status {
+  background: var(--clr-secondary);
+}
 
 .languages-chips {
   display: flex;
@@ -105,6 +108,11 @@ main {
   background: var(--clr-warning);
 }
 
+.char-key:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .newgame-btn {
   background: var(--clr-action);
   padding: 1rem 3rem;
@@ -113,6 +121,18 @@ main {
   color: var(--clr-secondary);
   border: 1px solid var(--clr-primary-light);
   border-radius: 5px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
 @media screen and (min-width: 1080px) {
