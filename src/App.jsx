@@ -3,7 +3,7 @@ import './App.css'
 
 import Header from '../components/Header'
 import languages from './languages'
-import words from './words'
+import words from './techWords'
 import { nanoid } from 'nanoid'
 import clsx from 'clsx';
 import { useWindowSize } from 'react-use'
@@ -43,7 +43,7 @@ function App() {
 
   function loadPuzzle() {
     let puzzleWord = Array.from(currentWord).map(char => {
-      return <span className={clsx('puzzle-char', {'hidden':!guessLetter.includes(char) && !isGameOver})} key={nanoid()}> {char} </span>
+      return <span className={clsx('puzzle-char', {'hidden':!guessLetter.includes(char) && !isGameOver, 'reveal':!guessLetter.includes(char) && isGameOver})} key={nanoid()}> {char} </span>
     })
     return puzzleWord
   }
@@ -133,6 +133,7 @@ function App() {
           </p>
           <p>Current word : {currentWord.split("").map(letter => guessLetter.includes(letter) ? letter : "blank").join(" ")}</p>
         </section>
+
         <section className='keyboard-wrap'>
           {createKeyboard()}
         </section>

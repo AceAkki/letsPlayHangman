@@ -82,6 +82,9 @@ main {
 .puzzle-char.hidden {
   color: var(--clr-primary-light);
 }
+.puzzle-char.reveal {
+  color: var(--clr-warning);
+}
 
 .keyboard-wrap {
   display: flex;
